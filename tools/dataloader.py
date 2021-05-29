@@ -7,12 +7,12 @@ class DataLoader:
     ratio = 0.85
 
     def __init__(self, ratio=0.85):
-        if not os.path.exists('tools/data'):
-            os.mkdir('tools/data')
-        if not os.path.exists('tools/data/X_n.npy') or not os.path.exists('tools/data/X_p.npy'):
+        if not os.path.exists('data'):
+            os.mkdir('data')
+        if not os.path.exists('data/X_n.npy') or not os.path.exists('data/X_p.npy'):
             raise Exception('Сannot load dataset')
-        self.X_p = np.load('tools/data/X_p.npy', allow_pickle=True)
-        self.X_n = np.load('tools/data/X_n.npy', allow_pickle=True)
+        self.X_p = np.load('data/X_p.npy', allow_pickle=True)
+        self.X_n = np.load('data/X_n.npy', allow_pickle=True)
         np.random.shuffle(self.X_p)
         np.random.shuffle(self.X_n)
         self.ratio = ratio
