@@ -26,14 +26,8 @@ def process_phrase(phrase):
         mqtt.publish(config.TOPIC_PATH, '0')
         print(config.TOPIC_PATH, ": 0")
 
-def run():
+def run(oauth, folder_id):
     global mutex
-    aparser = argparse.ArgumentParser()
-    aparser.add_argument('--oauth', required=True, help='OAuth token')
-    aparser.add_argument('--folder_id', required=True, help='folder ID')
-    args = aparser.parse_args()
-
-    folder_id = args.folder_id
 
     model = Net()
     load_model_txt(model, 'model.txt')
@@ -72,7 +66,7 @@ def run():
                 if y_[0, 1] > config.THRESHOLD and cnt > 5:
                     cnt = 0
                     print('Start listening command')
-                    phrase = recognize_phrase(folder_id, streamf32, mutex, args.oauth, recordData)
+                    phrase = recognize_phrase(folder_id, streamf32, mutex, oauth, recordData)
                     print("Command =", phrase)
                     process_phrase(phrase)
                     break
