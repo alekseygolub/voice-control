@@ -5,9 +5,12 @@ import torch.nn.functional as F
 import numpy as np
 import random
 import torch
+import sys
 
 import bin.config as config
 from bin.config import mfcc
+
+from tools.helpers import save_model_txt
 
 def print_accuracy(model, dataloader):
     X_p = dataloader.getTestPositives()
@@ -48,14 +51,6 @@ def print_accuracy(model, dataloader):
         print("Precision = ", p[best_idx])
         print("Recall = ", r[best_idx])
         print("Best threshold = ", tres[best_idx])
-
-
-def save_model_txt(model, path):
-    fout = open(path, 'w')
-    for k, v in model.state_dict().items():
-        fout.write(str(k) + '\n')
-        fout.write(str(v.tolist()) + '\n')
-    fout.close()
 
 
 def train(model, dataloader, epochCount=20):
