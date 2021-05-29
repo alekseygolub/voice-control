@@ -57,3 +57,4 @@ def convertBinFloat32ToBinInt16(data):
     tmp = tmp * maxInt16
     tmp = tmp.astype("int16")
     return tmp.tobytes()
+

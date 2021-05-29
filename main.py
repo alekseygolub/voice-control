@@ -32,3 +32,4 @@ if args.type == 'training':
     train(model, dataloader, args.epoch_count)
 elif args.type == 'detection':
     run(args.oauth, args.folder_id)
+

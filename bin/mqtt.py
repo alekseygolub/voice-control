@@ -16,3 +16,4 @@ def publish(topic, message):
     establish_connection()
     mqttc.publish(topic, payload=message)
     disconnect()
+

@@ -109,3 +109,4 @@ def train(model, dataloader, epochCount=20):
         running_loss = 0.0
     
     print('Training completed')
+

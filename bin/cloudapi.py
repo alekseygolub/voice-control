@@ -106,3 +106,4 @@ def recognize_phrase(folder_id, stream, mutex, oauth, record=deque()):
             if config.KEYWORD not in text.lower().split():
                 return ''
             return text
+

@@ -28,3 +28,4 @@ class DataLoader:
     
     def getTestNegatives(self):
         return self.X_n[int(len(self.X_n) * self.ratio):]
+
