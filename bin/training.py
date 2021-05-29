@@ -6,7 +6,10 @@ import numpy as np
 import random
 import torch
 
-def print_accuracy(model, dataloader, mfcc, env):
+import bin.config as config
+from bin.config import mfcc
+
+def print_accuracy(model, dataloader):
     X_p = dataloader.getTestPositives()
     X_n = dataloader.getTestNegatives()
 
@@ -16,7 +19,7 @@ def print_accuracy(model, dataloader, mfcc, env):
         for i in range(len(X_p)):
             xb = mfcc(torch.from_numpy(X_p[i]).float())
             y_test.append(1)
-            h = torch.zeros(1, env.HIDDEN_SIZE, dtype=torch.float32)
+            h = torch.zeros(1, config.HIDDEN_SIZE, dtype=torch.float32)
             res = 0
             for j in range(xb.shape[1]):
                 y, h = model(xb[:, j:j + 1].T, h)
@@ -27,7 +30,7 @@ def print_accuracy(model, dataloader, mfcc, env):
         for i in range(len(X_n)):
             xb = mfcc(torch.from_numpy(X_n[i]).float())
             y_test.append(0)
-            h = torch.zeros(1, env.HIDDEN_SIZE, dtype=torch.float32)
+            h = torch.zeros(1, config.HIDDEN_SIZE, dtype=torch.float32)
             
             res = 0
             for j in range(xb.shape[1]):
@@ -55,7 +58,7 @@ def save_model_txt(model, path):
     fout.close()
 
 
-def train(model, dataloader, mfcc, env, epochCount=20):
+def train(model, dataloader, epochCount=20):
     opt = torch.optim.Adam(model.parameters(), lr=0.00001)
     w = torch.tensor([1.0, 1000.0])
     loss_func = nn.CrossEntropyLoss(weight=w)
@@ -89,7 +92,7 @@ def train(model, dataloader, mfcc, env, epochCount=20):
             xb = torch.cat(xb, axis=1)
             yb = torch.cat(yb)
 
-            h = torch.zeros(1, env.HIDDEN_SIZE, dtype=torch.float32)
+            h = torch.zeros(1, config.HIDDEN_SIZE, dtype=torch.float32)
             
             opt.zero_grad()
 
@@ -106,7 +109,7 @@ def train(model, dataloader, mfcc, env, epochCount=20):
             samples_count += 1
         print("Epoch #" + str(epoch) + " ended")
         print("Average loss", running_loss / samples_count)
-        print_accuracy(model, dataloader, mfcc, env)
+        print_accuracy(model, dataloader)
         save_model_txt(model, 'model.txt')
         running_loss = 0.0
     
