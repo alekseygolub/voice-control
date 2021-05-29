@@ -105,7 +105,7 @@ def train(model, dataloader, epochCount=20):
         print("Epoch #" + str(epoch) + " ended")
         print("Average loss", running_loss / samples_count)
         print_accuracy(model, dataloader)
-        save_model_txt(model, 'model.txt')
+        save_model_txt(model, 'data/model.txt')
         running_loss = 0.0
     
     print('Training completed')

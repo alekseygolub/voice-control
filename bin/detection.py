@@ -30,7 +30,7 @@ def run(oauth, folder_id):
     global mutex
 
     model = Net()
-    load_model_txt(model, 'model.txt')
+    load_model_txt(model, 'data/model.txt')
     model.eval()
 
     audio = pyaudio.PyAudio()
